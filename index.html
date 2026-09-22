@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Concurso de Preguntas</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header id="topbar" class="topbar hidden">
+    <div id="topbar-info" class="topbar-info"></div>
+    <nav class="topbar-nav">
+      <button id="btn-marcador" class="btn btn-small">Marcador</button>
+      <button id="btn-admin" class="btn btn-small">Admin</button>
+    </nav>
+  </header>
+
+  <main id="app">
+    <!-- INICIO -->
+    <section id="screen-inicio" class="screen active">
+      <h1>Concurso de Preguntas</h1>
+      <p class="subtitle">Registra el equipo, tira el dado y a jugar.</p>
+
+      <div class="inicio-grid">
+        <form id="form-equipo" class="card">
+          <h2>Registrar equipo</h2>
+          <label>
+            Nombre del equipo *
+            <input type="text" id="input-nombre" placeholder="Ej. Los Tekkeros" autocomplete="off" />
+          </label>
+          <label>
+            Integrantes (separados por coma)
+            <input type="text" id="input-integrantes" placeholder="Ej. Ana, Luis, María" autocomplete="off" />
+          </label>
+          <label>
+            @ Instagram (integrante 1)
+            <input type="text" id="input-instagram-1" placeholder="@usuario1" autocomplete="off" />
+          </label>
+          <label>
+            @ Instagram (integrante 2)
+            <input type="text" id="input-instagram-2" placeholder="@usuario2" autocomplete="off" />
+          </label>
+          <p id="msg-registro" class="msg"></p>
+          <button type="submit" class="btn btn-primary">Guardar equipo</button>
+        </form>
+
+        <div class="card card-equipos">
+          <h2>Equipos registrados</h2>
+          <ul id="lista-equipos" class="team-list"></ul>
+          <p id="msg-sin-equipos" class="msg muted">Aun no hay equipos.</p>
+        </div>
+      </div>
+
+      <div class="quick-nav">
+        <button id="btn-marcador-inicio" class="btn">Ver marcador</button>
+        <button id="btn-admin-inicio" class="btn">Panel admin</button>
+      </div>
+    </section>
+
+    <!-- SELECCION DE TEMA -->
+    <section id="screen-tema" class="screen">
+      <h2 class="step-title"><span class="step-badge">1 / 2</span><span class="title-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1.3" fill="currentColor" stroke="none"/></svg></span>Tema</h2>
+      <p class="subtitle">Tira el dado fisico y toca el <strong>numero del tema</strong> que salio.</p>
+      <div id="grid-temas" class="dice-grid"></div>
+      <button id="btn-volver-inicio" class="btn">Volver</button>
+    </section>
+
+    <!-- SELECCION DE NIVEL -->
+    <section id="screen-nivel" class="screen">
+      <h2 class="step-title"><span class="step-badge">2 / 2</span><span class="title-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1.3" fill="currentColor" stroke="none"/></svg></span>Nivel</h2>
+      <p class="subtitle">Tira el dado de nuevo y toca el <strong>numero del nivel</strong> que salio.</p>
+      <p id="resumen-tema" class="resumen"></p>
+      <div id="grid-niveles" class="dice-grid"></div>
+      <button id="btn-atras-tema" class="btn">Atras</button>
+    </section>
+
+    <!-- REVELAR -->
+    <section id="screen-revelar" class="screen">
+      <p id="resumen-celda" class="resumen"></p>
+      <p class="subtitle center">¡El equipo ya eligio! Pulsa el boton cuando este listo.</p>
+      <button id="btn-revelar" class="btn btn-reveal">REVELAR PREGUNTA</button>
+      <button id="btn-cancelar-celda" class="btn">Cambiar celda</button>
+    </section>
+
+    <!-- PREGUNTA -->
+    <section id="screen-pregunta" class="screen">
+      <p id="resumen-pregunta" class="resumen"></p>
+      <div class="card">
+        <p id="txt-pregunta" class="question"></p>
+        <div id="opciones" class="opciones"></div>
+      </div>
+    </section>
+
+    <!-- RESULTADO -->
+    <section id="screen-resultado" class="screen">
+      <p id="txt-resultado" class="resultado"></p>
+      <p id="txt-correcta" class="msg"></p>
+      <p id="txt-puntos" class="puntos"></p>
+      <div class="btn-row">
+        <button id="btn-siguiente" class="btn btn-primary">Siguiente ronda</button>
+        <button id="btn-terminar" class="btn btn-danger">Terminar juego (equipo)</button>
+      </div>
+    </section>
+
+    <!-- MARCADOR -->
+    <section id="screen-marcador" class="screen">
+      <h2>Marcador</h2>
+      <table class="table">
+        <thead>
+          <tr><th>#</th><th>Equipo</th><th>Puntos</th><th>Ronda</th><th>Estado</th></tr>
+        </thead>
+        <tbody id="tbody-marcador"></tbody>
+      </table>
+      <button id="btn-marcador-volver" class="btn">Volver</button>
+    </section>
+
+    <!-- ADMIN -->
+    <section id="screen-admin" class="screen">
+      <h2>Panel de admin</h2>
+      <p class="subtitle">Datos de los equipos registrados.</p>
+      <table class="table">
+        <thead>
+          <tr><th>Equipo</th><th>Integrantes</th><th>Instagram</th><th>Puntos</th><th>Ronda</th><th>Estado</th></tr>
+        </thead>
+        <tbody id="tbody-admin"></tbody>
+      </table>
+      <div class="btn-row">
+        <button id="btn-admin-volver" class="btn">Volver</button>
+        <button id="btn-reiniciar" class="btn btn-danger">Reiniciar partida</button>
+      </div>
+      <p id="msg-admin" class="msg"></p>
+    </section>
+  </main>
+
+  <nav id="bottomnav" class="bottomnav">
+    <button id="nav-inicio" class="nav-tab" data-tab="inicio">
+      <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg></span>
+      <span class="nav-label">Inicio</span>
+    </button>
+    <button id="nav-marcador" class="nav-tab" data-tab="marcador">
+      <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a2 2 0 0 0 2 4h1"/><path d="M17 6h3a2 2 0 0 1-2 4h-1"/></svg></span>
+      <span class="nav-label">Marcador</span>
+    </button>
+    <button id="nav-admin" class="nav-tab" data-tab="admin">
+      <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+      <span class="nav-label">Admin</span>
+    </button>
+  </nav>
+
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
