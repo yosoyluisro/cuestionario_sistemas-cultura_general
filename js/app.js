@@ -341,11 +341,9 @@
     $("btn-terminar").addEventListener("click", terminarEquipo);
 
     $("btn-marcador").addEventListener("click", function () { irMarcador(undefined); });
-    $("btn-marcador-inicio").addEventListener("click", function () { irMarcador("screen-inicio"); });
     $("btn-marcador-volver").addEventListener("click", volverDeMarcador);
 
     $("btn-admin").addEventListener("click", irAdmin);
-    $("btn-admin-inicio").addEventListener("click", irAdmin);
     $("btn-admin-volver").addEventListener("click", function () {
       showScreen("screen-inicio");
     });

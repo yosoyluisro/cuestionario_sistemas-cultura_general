@@ -416,18 +416,12 @@ input[type="text"]:focus {
 }
 
 /* Grupos de botones */
-.btn-row,
-.quick-nav {
+.btn-row {
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-3);
   justify-content: center;
-}
-.btn-row {
   margin-top: var(--sp-6);
-}
-.quick-nav {
-  margin-top: var(--sp-3);
 }
 
 /* ============================================================
@@ -680,22 +674,17 @@ input[type="text"]:focus {
   grid-template-columns: 1fr;
   gap: var(--sp-4);
   width: 100%;
-  min-height: 0;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
+  align-items: stretch;
 }
 #screen-inicio .card {
   margin-bottom: 0;
   display: flex;
   flex-direction: column;
-  min-height: 0;
   min-width: 0;
 }
 #screen-inicio .card .btn {
   margin-top: auto;
-}
-#screen-inicio .quick-nav {
-  margin-top: 0;
-  flex: 0 0 auto;
 }
 @media (min-width: 720px) {
   .inicio-grid {
